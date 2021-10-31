@@ -15,7 +15,7 @@ public enum Rank {
 	}
 	
 //	public String toString() {
-//		return "" + value;
+//		return " " + value;
 //	}
 
 }
