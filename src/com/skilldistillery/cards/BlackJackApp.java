@@ -9,7 +9,7 @@ public class BlackJackApp {
 		Player player = new Player();
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Welcome to BlackJack App!! Press enter to start game.");
+		System.out.println("Welcome to BlackJack App!! Press enter to start the game.");
 		sc.nextLine();
 
 		dealer.getDeck().shuffle();
@@ -36,11 +36,12 @@ public class BlackJackApp {
 		}
 		// check if blackjack
 		int playerCardTotal;
-		int hitOrStay = 0;
 		boolean getAnotherCard = true;
 
+		boolean playerBust = false;
+
 		do {
-			boolean playerBust = false;
+			int hitOrStay = 0;
 
 			System.out.println("Would you like to hit or stay? Press 1 for hit, 2 for stay");
 			hitOrStay = sc.nextInt();
@@ -51,6 +52,7 @@ public class BlackJackApp {
 			} else if (hitOrStay == 2) {
 				getAnotherCard = false;
 				System.out.println("Player stays");
+				break;
 			}
 
 			playerBust = player.hand.isBust();
@@ -62,14 +64,25 @@ public class BlackJackApp {
 		} while (getAnotherCard == true);
 
 		boolean dealerBust = dealer.hand.isBust();
-		
+		if (playerBust != true) {
+			while (dealer.hand.getHandValue() < 17) {
+				if (dealer.hit() == true) {
+					dealer.hand.addCard(dealer.deal());
+					System.out.println("Dealer " + dealer.hand);
+				} else if (dealer.hand.getHandValue() >= 17) {
+					System.out.println("Dealer " + dealer.hand + " Dealer stays");
+				}
+			}System.out.println("Dealer has " + dealer.hand);
+		}
 
 		// Dealer shows value of own hand
 		// If total hand value is under 17, dealer hits.
 		// If value is over 17, dealer stays.
 		// Check if blackjack or bust
+
 		// If dealer takes another card check if blackjack or bust
 		// Dealer stays, compare value of dealers hand to players hand
 		// Declare a winner
+		System.out.println("Program exited");
 	}
 }
