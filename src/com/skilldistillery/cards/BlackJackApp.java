@@ -35,46 +35,36 @@ public class BlackJackApp {
 			System.out.println("Blackjack! Player wins!");
 		}
 		// check if blackjack
+		int playerCardTotal;
+		int hitOrStay = 0;
+		boolean getAnotherCard = true;
 
-		System.out.println("Would you like to hit or stay? Press 1 for hit, 2 for stay");
-		int hitOrStay = sc.nextInt();
-		sc.nextLine();
-		boolean playerBust = player.hand.isBust();
+		do {
+			boolean playerBust = false;
+
+			System.out.println("Would you like to hit or stay? Press 1 for hit, 2 for stay");
+			hitOrStay = sc.nextInt();
+			sc.nextLine();
+			if (hitOrStay == 1) {
+				player.hand.addCard(dealer.deal());
+				System.out.println("Player " + player.hand);
+			} else if (hitOrStay == 2) {
+				getAnotherCard = false;
+				System.out.println("Player stays");
+			}
+
+			playerBust = player.hand.isBust();
+			if (playerBust == true) {
+				System.out.println("Player busted! Game over.");
+				getAnotherCard = false;
+			}
+
+		} while (getAnotherCard == true);
+
 		boolean dealerBust = dealer.hand.isBust();
-		if (hitOrStay == 1) {
-			player.hand.addCard(dealer.deal());
-			System.out.println("Player " + player.hand);
-		} else if (hitOrStay == 2) {
-			System.out.println("Player stays");
-		}
-		if (playerBust == true) {
-			System.out.println("Player busted! Game over.");
-		} else if (playerBust == false) {
-			System.out.println("Would you like to hit or stay? Press 1 for hit, 2 for stay");
+		
 
-		}
-
-		int hitOrStay1 = sc.nextInt();
-		sc.nextLine();
-		if (hitOrStay1 == 1) {
-			player.hand.addCard(dealer.deal());
-			System.out.println("Player " + player.hand);
-		} else if (hitOrStay1 == 2) {
-			System.out.println("Player stays");
-		}
-		
-		if (playerBust == true) {
-			System.out.println("Player busted! Game over.");
-		} else if (playerBust == false) {
-			System.out.println("Would you like to hit or stay? Press 1 for hit, 2 for stay");
-			// ask player if they would like to hit.
-			// if player wants to hit, deal another card to the players hand
-			// check if bust or blackjack
-			// if player wants to stay, show players hand value.
-		
-		
-			
-			// Dealer shows value of own hand
+		// Dealer shows value of own hand
 		// If total hand value is under 17, dealer hits.
 		// If value is over 17, dealer stays.
 		// Check if blackjack or bust
@@ -82,5 +72,4 @@ public class BlackJackApp {
 		// Dealer stays, compare value of dealers hand to players hand
 		// Declare a winner
 	}
-
 }
